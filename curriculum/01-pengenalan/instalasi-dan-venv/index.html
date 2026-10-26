@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3136,6 +3136,8 @@
       
         
       
+        
+      
     
     
     
@@ -3286,6 +3288,34 @@
     
   
     Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-deployment/reverse-proxy-https/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Proxy dan HTTPS
   
 
     
@@ -3883,12 +3913,28 @@
 <td>Sistem operasi</td>
 <td>Windows, memakai PowerShell</td>
 </tr>
+<tr>
+<td>Docker Engine (Modul 10, uji container)</td>
+<td>29.9.2, di Ubuntu Linux</td>
+</tr>
+<tr>
+<td>Docker Compose (Modul 10)</td>
+<td>5.6.1</td>
+</tr>
+<tr>
+<td>Python di dalam image <code>python:3.14</code> (Modul 10)</td>
+<td>3.14.9</td>
+</tr>
+<tr>
+<td>Nginx, image <code>nginx:stable-alpine</code> (Modul 10, reverse proxy)</td>
+<td>1.30.6</td>
+</tr>
 </tbody>
 </table>
 <p>Berkas <code>examples/fastapi/requirements.txt</code> di repositori mengunci FastAPI ke <code>0.162.0</code> dan, untuk Modul 06, SQLModel dan Alembic. SQLModel, SQLAlchemy, dan Alembic baru dipakai mulai Modul 06; Modul 01 sampai 05 hanya memerlukan FastAPI.</p>
 <div class="admonition warning">
 <p class="admonition-title">Yang belum diuji</p>
-<p>Versi lain, sistem operasi macOS/Linux, dan tab macOS/Linux di halaman ini <strong>belum diuji</strong>. Versi minimum Python yang didukung FastAPI juga tidak saya verifikasi; lihat dokumentasi resmi FastAPI. Bila materi dan versi yang kamu pasang berbeda, hasilnya bisa berbeda dari yang tertulis.</p>
+<p>Versi lain, macOS, dan tab macOS/Linux di halaman ini <strong>belum diuji</strong>. Pengujian di Linux (Ubuntu) hanya perintah Docker di Modul 10, serta audit akhir yang menjalankan ulang seluruh rangkaian <code>pytest</code> contoh di <strong>Python 3.12.3</strong> dengan versi paket yang sama (hasilnya sama dengan yang tertulis di materi, termasuk satu tes yang memang sengaja gagal di Modul 09; hanya jumlah tes yang dilewati berbeda karena <code>skipif</code> bergantung pada platform). Tampilan perintah dan keluaran terminal di halaman tetap berasal dari Windows. Versi minimum Python yang didukung FastAPI juga tidak saya verifikasi; lihat dokumentasi resmi FastAPI. Bila materi dan versi yang kamu pasang berbeda, hasilnya bisa berbeda dari yang tertulis.</p>
 </div>
 <h2 id="konsep">Konsep<a class="headerlink" href="#konsep" title="Permanent link">&para;</a></h2>
 <h3 id="paket-dan-pip">Paket dan <code>pip</code><a class="headerlink" href="#paket-dan-pip" title="Permanent link">&para;</a></h3>
@@ -4212,10 +4258,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../assets/vendor/mermaid/mermaid.min.js"></script>
       

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2783,6 +2783,8 @@
       
         
       
+        
+      
     
     
     
@@ -2933,6 +2935,34 @@
     
   
     Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-proxy-https/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Proxy dan HTTPS
   
 
     
@@ -3829,7 +3859,7 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menambahkan logging terstruktur dengan request ID ke aplikasi nyata.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Membuat endpoint <em>liveness</em> (<code>/kesehatan</code>) dan <em>readiness</em> (<code>/siap</code>), dan membedakan keduanya.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menutup dokumentasi interaktif di produksi.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mengemas aplikasi dengan <code>Dockerfile</code> dan Compose, dan memahami bagian mana yang belum terverifikasi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mengemas aplikasi dengan <code>Dockerfile</code> dan Compose, membangunnya, dan menjalankannya sebagai container.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menilai kesiapan rilis dengan <code>periksa_rilis.py</code>.</li>
 </ul>
 <h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
@@ -3841,9 +3871,9 @@
 <p class="admonition-title">Versi yang diuji</p>
 <p>Kode dan output di halaman ini dijalankan dengan <strong>Python 3.14.7</strong>, <strong>FastAPI 0.162.0</strong>, <strong>SQLModel 0.0.48</strong>, <strong>Alembic 1.20.1</strong>, <strong>pydantic-settings 2.16.1</strong>, <strong>pytest 9.1.1</strong>, dan <strong>pytest-cov 7.1.0</strong> di Windows. Daftar versi lain ada di <a href="../../01-pengenalan/instalasi-dan-venv/#versi-yang-dipakai-di-materi-ini">Versi yang dipakai di materi ini</a>. Versi lain dan sistem operasi lain <strong>belum diuji</strong>.</p>
 </div>
-<div class="admonition danger">
-<p class="admonition-title">Docker tidak dijalankan di tahap ini</p>
-<p>Sama seperti halaman <a href="../container/">Container</a>: daemon Docker tidak aktif di mesin penulis, sehingga <code>docker build</code>, <code>docker run</code>, dan <code>docker compose</code> <strong>tidak pernah dijalankan</strong>. Yang diuji adalah langkah-langkah di dalam <code>Dockerfile</code> yang <strong>diemulasikan di luar Docker</strong> (lihat <a href="#menjalankan-seperti-di-container">Menjalankan seperti di container</a>). Bacalah perintah Docker di halaman ini sebagai rancangan yang belum terverifikasi.</p>
+<div class="admonition success">
+<p class="admonition-title">Docker sudah dijalankan</p>
+<p><code>docker build</code>, <code>docker run</code>, dan <code>docker compose up</code> untuk tahap ini dijalankan di Ubuntu dengan Docker Engine 29.9.2 dan Compose 5.6.1. Hasilnya ada di halaman <a href="../container/#yang-sudah-diuji">Container</a>. Pengujian di Windows dan macOS (Docker Desktop) belum dilakukan. Bagian "Menjalankan seperti di container" di bawah adalah percobaan awal di Windows tanpa Docker, dan dipertahankan sebagai catatan.</p>
 </div>
 <h2 id="tentang-tahap-ini">Tentang tahap ini<a class="headerlink" href="#tentang-tahap-ini" title="Permanent link">&para;</a></h2>
 <p>Tahap 6 melanjutkan <strong>TugasKu API</strong> dari Tahap 5. Rangkaian 54 pengujian dari Tahap 5 tetap ada dan tetap lulus. Yang ditambahkan:</p>
@@ -4166,44 +4196,43 @@
 <div class="language-dockerfile highlight"><span class="filename">Dockerfile</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c"># Dockerfile untuk TugasKU API (versi siap deploy, proyek tahap 6).</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c"># Letakkan di folder yang sama dengan requirements.txt, alembic.ini, alembic/, dan app/.</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c">#</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c"># CATATAN: Dockerfile ini BELUM dibangun atau dijalankan saat materi ditulis,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c"># karena daemon Docker tidak aktif pada mesin penulis. Lihat penjelasan di halaman Container.</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c"># Salin daftar dependensi lebih dulu. Lapisan ini hanya dibangun ulang bila requirements.txt berubah.</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="c"># Salin kode aplikasi dan migrasi. Bagian ini paling sering berubah, jadi ditaruh paling akhir.</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">COPY</span><span class="w"> </span>./alembic.ini<span class="w"> </span>/code/alembic.ini
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">COPY</span><span class="w"> </span>./alembic<span class="w"> </span>/code/alembic
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="c"># Jalankan sebagai pengguna biasa, bukan root</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>--create-home<span class="w"> </span>--uid<span class="w"> </span><span class="m">1000</span><span class="w"> </span>aplikasi<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>/data<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>chown<span class="w"> </span>aplikasi:aplikasi<span class="w"> </span>/data
-</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="k">USER</span><span class="w"> </span><span class="s">aplikasi</span>
-</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
-</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="c"># Basis data SQLite disimpan di /data, yang dipasang sebagai volume agar data tidak hilang</span>
-</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">TUGASKU_DATABASE_URL</span><span class="o">=</span>sqlite:////data/database.db
-</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="k">VOLUME</span><span class="w"> </span><span class="p">[</span><span class="s2">"/data"</span><span class="p">]</span>
-</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
-</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="c"># Agar perintah alembic yang dijalankan dari folder lain (/data) tetap bisa mengimpor paket "app"</span>
-</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>/code
-</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>
-</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8000</span>
-</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>
-</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="c"># Bentuk exec (dengan tanda kurung siku): memungkinkan penghentian baik-baik dan menjalankan lifespan.</span>
-</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="c"># Satu proses per container; replikasi diserahkan ke pengelola container.</span>
-</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8000"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--proxy-headers"</span><span class="p">]</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c"># Sudah dibangun dan dijalankan dengan Docker Engine 29.9.2 di Ubuntu. Lihat halaman Container.</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c"># Salin daftar dependensi lebih dulu. Lapisan ini hanya dibangun ulang bila requirements.txt berubah.</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c"># Salin kode aplikasi dan migrasi. Bagian ini paling sering berubah, jadi ditaruh paling akhir.</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">COPY</span><span class="w"> </span>./alembic.ini<span class="w"> </span>/code/alembic.ini
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">COPY</span><span class="w"> </span>./alembic<span class="w"> </span>/code/alembic
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="c"># Jalankan sebagai pengguna biasa, bukan root</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>--create-home<span class="w"> </span>--uid<span class="w"> </span><span class="m">1000</span><span class="w"> </span>aplikasi<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>/data<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>chown<span class="w"> </span>aplikasi:aplikasi<span class="w"> </span>/data
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="k">USER</span><span class="w"> </span><span class="s">aplikasi</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="c"># Basis data SQLite disimpan di /data, yang dipasang sebagai volume agar data tidak hilang</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">TUGASKU_DATABASE_URL</span><span class="o">=</span>sqlite:////data/database.db
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="k">VOLUME</span><span class="w"> </span><span class="p">[</span><span class="s2">"/data"</span><span class="p">]</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="c"># Agar perintah alembic yang dijalankan dari folder lain (/data) tetap bisa mengimpor paket "app"</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>/code
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">8000</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="c"># Bentuk exec (dengan tanda kurung siku): memungkinkan penghentian baik-baik dan menjalankan lifespan.</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="c"># Satu proses per container; replikasi diserahkan ke pengelola container.</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8000"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--proxy-headers"</span><span class="p">]</span>
 </span></code></pre></div>
 <h3 id="docker-composeyml"><code>docker-compose.yml</code><a class="headerlink" href="#docker-composeyml" title="Permanent link">&para;</a></h3>
 <div class="language-yaml highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Menjalankan TugasKU API dengan Docker Compose.</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># BELUM dijalankan saat materi ditulis (daemon Docker tidak aktif pada mesin penulis).</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Sudah dijalankan dengan Docker Compose 5.6.1 di Ubuntu. Lihat halaman Container.</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nt">services</span><span class="p">:</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">api</span><span class="p">:</span>
@@ -4281,7 +4310,7 @@
 </table>
 <p>Kerusakan ketiga <strong>awalnya lolos tanpa terdeteksi</strong>: pengujian <code>/siap</code> hanya memeriksa kasus basis data sehat, sehingga tidak bisa membedakan <code>/siap</code> yang benar dari yang pura-pura. Itu dibenahi dengan menambah <code>test_siap_gagal_503_bila_basis_data_bermasalah</code> (sesi yang sengaja rusak), sekaligus mengubah <code>/siap</code> agar menjawab <code>503</code> dan tidak <code>500</code>. Setelah itu kerusakan ketiga tertangkap.</p>
 <h3 id="menjalankan-seperti-di-container">Menjalankan seperti di container<a class="headerlink" href="#menjalankan-seperti-di-container" title="Permanent link">&para;</a></h3>
-<p>Langkah di <code>Dockerfile</code> diemulasikan tanpa Docker: salin <code>app</code>, <code>alembic</code>, dan <code>alembic.ini</code> ke folder <code>code</code>; siapkan folder <code>data</code> kosong; jalankan migrasi dari folder <code>data</code> dengan <code>PYTHONPATH</code> menunjuk ke <code>code</code>; jalankan server dari <code>code</code> dengan variabel environment produksi (<code>lingkungan=produksi</code>, log JSON, origin <code>https://tugasku.contoh</code>, kunci acak 64 karakter).</p>
+<p>Sebelum Docker dicoba, langkah di <code>Dockerfile</code> diemulasikan tanpa Docker di Windows: salin <code>app</code>, <code>alembic</code>, dan <code>alembic.ini</code> ke folder <code>code</code>; siapkan folder <code>data</code> kosong; jalankan migrasi dari folder <code>data</code> dengan <code>PYTHONPATH</code> menunjuk ke <code>code</code>; jalankan server dari <code>code</code> dengan variabel environment produksi (<code>lingkungan=produksi</code>, log JSON, origin <code>https://tugasku.contoh</code>, kunci acak 64 karakter).</p>
 <p>Migrasi membuat <code>database.db</code> di folder <code>data</code>. Lalu:</p>
 <table>
 <thead>
@@ -4374,27 +4403,31 @@
 <tbody>
 <tr>
 <td><code>docker build</code>, <code>docker run</code>, <code>docker compose up</code></td>
-<td><strong>Tidak dijalankan</strong> (daemon Docker tidak aktif)</td>
+<td>Dijalankan di Ubuntu (lihat <a href="../container/#yang-sudah-diuji">Container</a>)</td>
 </tr>
 <tr>
-<td>Lapisan image, ukuran image, dan perilaku <code>useradd</code> di image Python</td>
-<td>Tidak diuji</td>
+<td>Ukuran image</td>
+<td>1,8 GB menurut <code>docker images</code>; varian <code>slim</code> tidak dicoba. Pengguna <code>aplikasi</code> (uid 1000) terbukti terbentuk dan memiliki <code>/data</code></td>
 </tr>
 <tr>
-<td><code>restart: unless-stopped</code>, perilaku volume <code>tugasku-data</code></td>
-<td>Tidak diuji</td>
+<td>Volume</td>
+<td>Data bertahan setelah container dibuat ulang (diuji). <code>restart: unless-stopped</code> tidak diuji</td>
 </tr>
 <tr>
 <td>HTTPS, proksi balik (reverse proxy), dan header <code>X-Forwarded-*</code></td>
+<td>Diuji dengan Nginx dan sertifikat self-signed di <a href="../reverse-proxy-https/">Reverse Proxy dan HTTPS</a></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>Hanya Ubuntu dengan Docker Engine; seluruh pengujian aplikasi (<code>pytest</code>) dan penilaian kesiapan tetap dijalankan di Windows</td>
+</tr>
+<tr>
+<td>macOS dan Docker Desktop</td>
 <td>Tidak diuji</td>
 </tr>
 <tr>
-<td>Linux dan macOS</td>
-<td>Tidak diuji</td>
-</tr>
-<tr>
-<td><code>HEALTHCHECK</code> Docker atau probe Kubernetes yang memanggil <code>/kesehatan</code> dan <code>/siap</code></td>
-<td>Tidak ditulis dan tidak diuji</td>
+<td>Health check Docker yang memanggil <code>/kesehatan</code></td>
+<td>Diuji lewat Compose di <a href="../reverse-proxy-https/">Reverse Proxy dan HTTPS</a>. Probe Kubernetes dan instruksi <code>HEALTHCHECK</code> di <code>Dockerfile</code> tidak diuji</td>
 </tr>
 <tr>
 <td>Pemindai kerentanan image</td>
@@ -4471,7 +4504,7 @@
 <li>Aturan produksi di <code>Settings</code> membuat konfigurasi berbahaya menggagalkan aplikasi saat mulai.</li>
 <li><code>/kesehatan</code> (hidup) dan <code>/siap</code> (siap) berbeda; hanya <code>/siap</code> yang menyentuh basis data.</li>
 <li>67 pengujian lulus (54 lama + 13 baru); tiga kerusakan sengaja tertangkap setelah satu pengujian ditambah.</li>
-<li>Emulasi langkah <code>Dockerfile</code> di luar Docker membuktikan migrasi, konfigurasi produksi, dan data yang bertahan, tetapi <strong>bukan</strong> bahwa image terbangun. Docker tidak dijalankan.</li>
+<li>Image terbangun dan berjalan di Docker (Ubuntu): migrasi, <code>/kesehatan</code>, <code>/siap</code>, pendaftaran, pengguna non-root, data yang bertahan di volume, dan penghentian baik-baik terbukti. Isi image dan Docker Desktop belum diperiksa.</li>
 <li><code>periksa_rilis.py</code> melaporkan 0 gagal dari 9 pemeriksaan; ia heuristik, bukan jaminan.</li>
 </ul>
 <h2 id="langkah-berikutnya">Langkah berikutnya<a class="headerlink" href="#langkah-berikutnya" title="Permanent link">&para;</a></h2>
@@ -4557,10 +4590,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../assets/vendor/mermaid/mermaid.min.js"></script>
       
