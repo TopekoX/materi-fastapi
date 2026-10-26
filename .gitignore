@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .shots/
 venv-freeze.txt
+*.db
+.env
+.pytest_cache/

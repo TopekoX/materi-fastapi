@@ -48,8 +48,8 @@ Setiap modul adalah satu folder dengan `index.md` sebagai landing page. Daftar t
 | Modul | Tingkat | Topik utama |
 |---|---|---|
 | 01 Pengenalan | Pemula | Apa itu FastAPI, HTTP dan REST, instalasi dan venv, aplikasi pertama, menjalankan server, dokumentasi interaktif otomatis |
-| 02 Dasar Routing | Pemula | Path operation, HTTP method, path parameter, query parameter, urutan route |
-| 03 Data dan Validasi | Pemula | Request body, model Pydantic, validasi field, response model, type hints |
+| 02 Dasar Routing | Pemula | Path parameter, query parameter, urutan route, dasar async/await. Path operation dan HTTP method sudah dibahas di Modul 01 |
+| 03 Data dan Validasi | Pemula | Request body, model Pydantic, validasi field, validasi path dan query parameter (batasan nilai), response model, type hints |
 | 04 Penanganan Error | Menengah | Status code, `HTTPException`, validasi error, handler kustom |
 | 05 Dependency Injection | Menengah | Konsep dependency, dependency berantai, dependency per router |
 | 06 Basis Data | Menengah | Koneksi, model dan skema, operasi CRUD, relasi, migrasi |

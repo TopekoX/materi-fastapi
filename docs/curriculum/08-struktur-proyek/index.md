@@ -17,10 +17,12 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Router modular
-- Konfigurasi dan environment
-- Middleware
-- Background task
+- [Router modular](router-modular.md)
+- [Konfigurasi dan environment](konfigurasi-environment.md)
+- [Middleware](middleware.md)
+- [Background task](background-task.md)
+- [Lifespan: mulai dan berhenti](lifespan.md)
+- [Proyek: memecah TugasKu](refaktor-tugasku.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Daftar ini akan ditautkan setelah tersedia.
+    Semua materi Modul 08 sudah tersedia. Modul ini memakai `APIRouter`, `pydantic-settings`, middleware, `BackgroundTasks`, dan `lifespan`. Halaman proyek di akhir adalah refaktor tahap 4, bukan tahap proyek baru.

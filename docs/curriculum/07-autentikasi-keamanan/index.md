@@ -20,12 +20,13 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Hashing password
-- Token
-- Proteksi endpoint
-- Otorisasi
-- CORS
-- Proyek praktik tahap 4
+- [Hashing password](hashing-password.md)
+- [Token](token.md)
+- [Proteksi endpoint](proteksi-endpoint.md)
+- [Refresh token dan pencabutan](refresh-token.md)
+- [Otorisasi](otorisasi.md)
+- [CORS](cors.md)
+- [Proyek praktik tahap 4](proyek-tahap-4.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Metode autentikasi akan ditetapkan sebelum modul ini ditulis.
+    Semua materi Modul 07 sudah tersedia. Modul ini memakai pwdlib (Argon2) untuk hashing, PyJWT untuk token, dan `OAuth2PasswordBearer` untuk proteksi endpoint.

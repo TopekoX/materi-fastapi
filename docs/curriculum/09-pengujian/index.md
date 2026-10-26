@@ -19,11 +19,13 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Pengujian endpoint
-- Fixture
-- Override dependency
-- Basis data untuk pengujian
-- Proyek praktik tahap 5
+- [Pengujian endpoint](pengujian-endpoint.md)
+- [Fixture](fixture.md)
+- [Override dependency](override-dependency.md)
+- [Basis data untuk pengujian](basis-data-pengujian.md)
+- [Pengujian async](pengujian-async.md)
+- [Mock dan monkeypatch](mock-monkeypatch.md)
+- [Proyek praktik tahap 5](proyek-tahap-5.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Daftar ini akan ditautkan setelah tersedia.
+    Semua materi Modul 09 sudah tersedia. Modul ini memakai `pytest`, `TestClient`, `httpx.AsyncClient`, dan `pytest-cov`.

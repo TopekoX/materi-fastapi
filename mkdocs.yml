@@ -7,7 +7,7 @@
 site_name: Belajar FastAPI
 site_description: Dokumentasi pembelajaran FastAPI berbahasa Indonesia, dari pemula hingga mahir.
 # Canonical URL. For GitHub Pages: https://<user>.github.io/<repo>/
-site_url: https://topekox.github.io/mkdocs-template/
+site_url: https://topekox.github.io/materi-fastapi/
 # repo_url / repo_name / edit_uri sengaja dihapus: header tidak menampilkan info
 # GitHub dan browser tidak memanggil api.github.com.
 
@@ -52,29 +52,93 @@ theme:
 
 # --- Navigation (EDIT PER SUBJECT) -----------------------------------------
 nav:
-  - Beranda: index.md
+  - Beranda:
+      - index.md
+      - Peta Belajar: peta-belajar.md
   - Kurikulum:
       - curriculum/index.md
       - 01 Pengenalan:
           - curriculum/01-pengenalan/index.md
+          - Apa itu FastAPI: curriculum/01-pengenalan/apa-itu-fastapi.md
+          - Instalasi dan Virtual Environment: curriculum/01-pengenalan/instalasi-dan-venv.md
+          - Aplikasi Pertama: curriculum/01-pengenalan/aplikasi-pertama.md
+          - Menjalankan Server: curriculum/01-pengenalan/menjalankan-server.md
+          - Dokumentasi Interaktif: curriculum/01-pengenalan/dokumentasi-interaktif.md
+          - Endpoint Pertama: curriculum/01-pengenalan/endpoint-pertama.md
+          - HTTP dan REST: curriculum/01-pengenalan/http-dan-rest.md
       - 02 Dasar Routing:
           - curriculum/02-dasar-routing/index.md
+          - Path Parameter: curriculum/02-dasar-routing/path-parameter.md
+          - Query Parameter: curriculum/02-dasar-routing/query-parameter.md
+          - Urutan Route: curriculum/02-dasar-routing/urutan-route.md
+          - Dasar Async/Await: curriculum/02-dasar-routing/async-await.md
+          - Latihan Gabungan: curriculum/02-dasar-routing/latihan-gabungan.md
       - 03 Data dan Validasi:
           - curriculum/03-data-validasi/index.md
+          - Type Hints untuk FastAPI: curriculum/03-data-validasi/type-hints.md
+          - Request Body: curriculum/03-data-validasi/request-body.md
+          - Model Pydantic: curriculum/03-data-validasi/model-pydantic.md
+          - Validasi Field: curriculum/03-data-validasi/validasi-field.md
+          - Validasi Path dan Query Parameter: curriculum/03-data-validasi/validasi-path-query.md
+          - Response Model: curriculum/03-data-validasi/response-model.md
+          - Proyek Praktik Tahap 1: curriculum/03-data-validasi/proyek-tahap-1.md
       - 04 Penanganan Error:
           - curriculum/04-penanganan-error/index.md
+          - Status Code: curriculum/04-penanganan-error/status-code.md
+          - HTTPException: curriculum/04-penanganan-error/http-exception.md
+          - Error Validasi: curriculum/04-penanganan-error/error-validasi.md
+          - Handler Error Kustom: curriculum/04-penanganan-error/handler-kustom.md
+          - Proyek Praktik Tahap 2: curriculum/04-penanganan-error/proyek-tahap-2.md
       - 05 Dependency Injection:
           - curriculum/05-dependency-injection/index.md
+          - Konsep Dependency: curriculum/05-dependency-injection/konsep-dependency.md
+          - Dependency Sederhana: curriculum/05-dependency-injection/dependency-sederhana.md
+          - Dependency Berantai: curriculum/05-dependency-injection/dependency-berantai.md
+          - Dependency dengan yield: curriculum/05-dependency-injection/dependency-yield.md
+          - Dependency per Router: curriculum/05-dependency-injection/dependency-router.md
       - 06 Basis Data:
           - curriculum/06-basis-data/index.md
+          - Koneksi ke Basis Data: curriculum/06-basis-data/koneksi-basis-data.md
+          - Model dan Skema: curriculum/06-basis-data/model-dan-skema.md
+          - Operasi CRUD: curriculum/06-basis-data/operasi-crud.md
+          - Relasi: curriculum/06-basis-data/relasi.md
+          - Sesi Basis Data Async: curriculum/06-basis-data/sesi-async.md
+          - Migrasi: curriculum/06-basis-data/migrasi.md
+          - Proyek Praktik Tahap 3: curriculum/06-basis-data/proyek-tahap-3.md
       - 07 Autentikasi dan Keamanan:
           - curriculum/07-autentikasi-keamanan/index.md
+          - Hashing Password: curriculum/07-autentikasi-keamanan/hashing-password.md
+          - Token: curriculum/07-autentikasi-keamanan/token.md
+          - Proteksi Endpoint: curriculum/07-autentikasi-keamanan/proteksi-endpoint.md
+          - Refresh Token dan Pencabutan: curriculum/07-autentikasi-keamanan/refresh-token.md
+          - Otorisasi: curriculum/07-autentikasi-keamanan/otorisasi.md
+          - CORS: curriculum/07-autentikasi-keamanan/cors.md
+          - Proyek Praktik Tahap 4: curriculum/07-autentikasi-keamanan/proyek-tahap-4.md
       - 08 Struktur Proyek:
           - curriculum/08-struktur-proyek/index.md
+          - Router Modular: curriculum/08-struktur-proyek/router-modular.md
+          - Konfigurasi dan Environment: curriculum/08-struktur-proyek/konfigurasi-environment.md
+          - Middleware: curriculum/08-struktur-proyek/middleware.md
+          - Background Task: curriculum/08-struktur-proyek/background-task.md
+          - "Lifespan: Mulai dan Berhenti": curriculum/08-struktur-proyek/lifespan.md
+          - "Proyek: Memecah TugasKu": curriculum/08-struktur-proyek/refaktor-tugasku.md
       - 09 Pengujian:
           - curriculum/09-pengujian/index.md
+          - Pengujian Endpoint: curriculum/09-pengujian/pengujian-endpoint.md
+          - Fixture: curriculum/09-pengujian/fixture.md
+          - Override Dependency: curriculum/09-pengujian/override-dependency.md
+          - Basis Data untuk Pengujian: curriculum/09-pengujian/basis-data-pengujian.md
+          - Pengujian Async: curriculum/09-pengujian/pengujian-async.md
+          - Mock dan Monkeypatch: curriculum/09-pengujian/mock-monkeypatch.md
+          - Proyek Praktik Tahap 5: curriculum/09-pengujian/proyek-tahap-5.md
       - 10 Deployment:
           - curriculum/10-deployment/index.md
+          - Server Produksi: curriculum/10-deployment/server-produksi.md
+          - Container: curriculum/10-deployment/container.md
+          - Variabel Environment: curriculum/10-deployment/variabel-environment.md
+          - Logging: curriculum/10-deployment/logging.md
+          - Checklist Rilis: curriculum/10-deployment/checklist-rilis.md
+          - Proyek Praktik Tahap 6: curriculum/10-deployment/proyek-tahap-6.md
 
 # --- Plugins ----------------------------------------------------------------
 plugins:

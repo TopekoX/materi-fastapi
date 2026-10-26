@@ -20,12 +20,12 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Server produksi
-- Container
-- Variabel environment
-- Logging
-- Checklist rilis
-- Proyek praktik tahap 6
+- [Server produksi](server-produksi.md)
+- [Container](container.md)
+- [Variabel environment](variabel-environment.md)
+- [Logging](logging.md)
+- [Checklist rilis](checklist-rilis.md)
+- [Proyek praktik tahap 6](proyek-tahap-6.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Daftar ini akan ditautkan setelah tersedia.
+    Keenam halaman sudah tersedia. Perintah Docker pada halaman Container dan Proyek Praktik Tahap 6 **belum dijalankan** (daemon Docker tidak aktif saat materi ditulis); yang diuji adalah emulasi langkah `Dockerfile` di luar Docker.

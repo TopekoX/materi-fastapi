@@ -18,11 +18,11 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Status code
-- `HTTPException`
-- Error validasi
-- Handler error kustom
-- Proyek praktik tahap 2
+- [Status code](status-code.md)
+- [`HTTPException`](http-exception.md)
+- [Error validasi](error-validasi.md)
+- [Handler error kustom](handler-kustom.md)
+- [Proyek praktik tahap 2](proyek-tahap-2.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Daftar ini akan ditautkan setelah tersedia.
+    Semua materi Modul 04 sudah tersedia, termasuk proyek praktik tahap 2.

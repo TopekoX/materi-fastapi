@@ -18,10 +18,11 @@ Setelah modul ini, kamu mampu:
 
 ## Daftar materi
 
-- Konsep dependency
-- Dependency sederhana
-- Dependency berantai
-- Dependency per router
+- [Konsep dependency](konsep-dependency.md)
+- [Dependency sederhana](dependency-sederhana.md)
+- [Dependency berantai](dependency-berantai.md)
+- [Dependency dengan yield](dependency-yield.md)
+- [Dependency per router](dependency-router.md)
 
 !!! info "Status"
-    Halaman materi belum ditulis. Daftar ini akan ditautkan setelah tersedia.
+    Semua materi Modul 05 sudah tersedia.
