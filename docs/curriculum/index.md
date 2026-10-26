@@ -16,4 +16,4 @@ Modul pembelajaran FastAPI, dari dasar hingga mahir. Ikuti secara berurutan; set
 | 10 | [Deployment](10-deployment/index.md) | Lanjut |
 
 !!! info "Pola bab"
-    Setiap bab nantinya memuat: tujuan pembelajaran, konsep, contoh kode, output yang diharapkan, tutorial langkah demi langkah, kesalahan umum, latihan, dan ringkasan.
+    Setiap bab memuat: tujuan pembelajaran, konsep, contoh kode, output yang diharapkan, tutorial langkah demi langkah, kesalahan umum, latihan, dan ringkasan.

@@ -9,7 +9,7 @@ Setelah mengerjakan halaman ini, kamu mampu:
 - [ ] Menambahkan logging terstruktur dengan request ID ke aplikasi nyata.
 - [ ] Membuat endpoint *liveness* (`/kesehatan`) dan *readiness* (`/siap`), dan membedakan keduanya.
 - [ ] Menutup dokumentasi interaktif di produksi.
-- [ ] Mengemas aplikasi dengan `Dockerfile` dan Compose, dan memahami bagian mana yang belum terverifikasi.
+- [ ] Mengemas aplikasi dengan `Dockerfile` dan Compose, membangunnya, dan menjalankannya sebagai container.
 - [ ] Menilai kesiapan rilis dengan `periksa_rilis.py`.
 
 ## Prasyarat
@@ -20,8 +20,8 @@ Setelah mengerjakan halaman ini, kamu mampu:
 !!! info "Versi yang diuji"
     Kode dan output di halaman ini dijalankan dengan **Python 3.14.7**, **FastAPI 0.162.0**, **SQLModel 0.0.48**, **Alembic 1.20.1**, **pydantic-settings 2.16.1**, **pytest 9.1.1**, dan **pytest-cov 7.1.0** di Windows. Daftar versi lain ada di [Versi yang dipakai di materi ini](../01-pengenalan/instalasi-dan-venv.md#versi-yang-dipakai-di-materi-ini). Versi lain dan sistem operasi lain **belum diuji**.
 
-!!! danger "Docker tidak dijalankan di tahap ini"
-    Sama seperti halaman [Container](container.md): daemon Docker tidak aktif di mesin penulis, sehingga `docker build`, `docker run`, dan `docker compose` **tidak pernah dijalankan**. Yang diuji adalah langkah-langkah di dalam `Dockerfile` yang **diemulasikan di luar Docker** (lihat [Menjalankan seperti di container](#menjalankan-seperti-di-container)). Bacalah perintah Docker di halaman ini sebagai rancangan yang belum terverifikasi.
+!!! success "Docker sudah dijalankan"
+    `docker build`, `docker run`, dan `docker compose up` untuk tahap ini dijalankan di Ubuntu dengan Docker Engine 29.9.2 dan Compose 5.6.1. Hasilnya ada di halaman [Container](container.md#yang-sudah-diuji). Pengujian di Windows dan macOS (Docker Desktop) belum dilakukan. Bagian "Menjalankan seperti di container" di bawah adalah percobaan awal di Windows tanpa Docker, dan dipertahankan sebagai catatan.
 
 ## Tentang tahap ini
 
@@ -165,7 +165,7 @@ Kerusakan ketiga **awalnya lolos tanpa terdeteksi**: pengujian `/siap` hanya mem
 
 ### Menjalankan seperti di container
 
-Langkah di `Dockerfile` diemulasikan tanpa Docker: salin `app`, `alembic`, dan `alembic.ini` ke folder `code`; siapkan folder `data` kosong; jalankan migrasi dari folder `data` dengan `PYTHONPATH` menunjuk ke `code`; jalankan server dari `code` dengan variabel environment produksi (`lingkungan=produksi`, log JSON, origin `https://tugasku.contoh`, kunci acak 64 karakter).
+Sebelum Docker dicoba, langkah di `Dockerfile` diemulasikan tanpa Docker di Windows: salin `app`, `alembic`, dan `alembic.ini` ke folder `code`; siapkan folder `data` kosong; jalankan migrasi dari folder `data` dengan `PYTHONPATH` menunjuk ke `code`; jalankan server dari `code` dengan variabel environment produksi (`lingkungan=produksi`, log JSON, origin `https://tugasku.contoh`, kunci acak 64 karakter).
 
 Migrasi membuat `database.db` di folder `data`. Lalu:
 
@@ -231,12 +231,13 @@ Bandingkan dengan Tahap 5 yang `1 gagal dari 9`. Ingat bahwa pemeriksa ini heuri
 
 | Hal | Status |
 |---|---|
-| `docker build`, `docker run`, `docker compose up` | **Tidak dijalankan** (daemon Docker tidak aktif) |
-| Lapisan image, ukuran image, dan perilaku `useradd` di image Python | Tidak diuji |
-| `restart: unless-stopped`, perilaku volume `tugasku-data` | Tidak diuji |
-| HTTPS, proksi balik (reverse proxy), dan header `X-Forwarded-*` | Tidak diuji |
-| Linux dan macOS | Tidak diuji |
-| `HEALTHCHECK` Docker atau probe Kubernetes yang memanggil `/kesehatan` dan `/siap` | Tidak ditulis dan tidak diuji |
+| `docker build`, `docker run`, `docker compose up` | Dijalankan di Ubuntu (lihat [Container](container.md#yang-sudah-diuji)) |
+| Ukuran image | 1,8 GB menurut `docker images`; varian `slim` tidak dicoba. Pengguna `aplikasi` (uid 1000) terbukti terbentuk dan memiliki `/data` |
+| Volume | Data bertahan setelah container dibuat ulang (diuji). `restart: unless-stopped` tidak diuji |
+| HTTPS, proksi balik (reverse proxy), dan header `X-Forwarded-*` | Diuji dengan Nginx dan sertifikat self-signed di [Reverse Proxy dan HTTPS](reverse-proxy-https.md) |
+| Linux | Hanya Ubuntu dengan Docker Engine; seluruh pengujian aplikasi (`pytest`) dan penilaian kesiapan tetap dijalankan di Windows |
+| macOS dan Docker Desktop | Tidak diuji |
+| Health check Docker yang memanggil `/kesehatan` | Diuji lewat Compose di [Reverse Proxy dan HTTPS](reverse-proxy-https.md). Probe Kubernetes dan instruksi `HEALTHCHECK` di `Dockerfile` tidak diuji |
 | Pemindai kerentanan image | Tidak dibahas |
 | Basis data selain SQLite untuk produksi | Tidak diuji |
 | Beberapa worker dengan SQLite | Tidak diuji pada aplikasi ini; lihat peringatan tentang status di memori pada [Server Produksi](server-produksi.md) |
@@ -272,7 +273,7 @@ Bandingkan dengan Tahap 5 yang `1 gagal dari 9`. Ingat bahwa pemeriksa ini heuri
 - Aturan produksi di `Settings` membuat konfigurasi berbahaya menggagalkan aplikasi saat mulai.
 - `/kesehatan` (hidup) dan `/siap` (siap) berbeda; hanya `/siap` yang menyentuh basis data.
 - 67 pengujian lulus (54 lama + 13 baru); tiga kerusakan sengaja tertangkap setelah satu pengujian ditambah.
-- Emulasi langkah `Dockerfile` di luar Docker membuktikan migrasi, konfigurasi produksi, dan data yang bertahan, tetapi **bukan** bahwa image terbangun. Docker tidak dijalankan.
+- Image terbangun dan berjalan di Docker (Ubuntu): migrasi, `/kesehatan`, `/siap`, pendaftaran, pengguna non-root, data yang bertahan di volume, dan penghentian baik-baik terbukti. Isi image dan Docker Desktop belum diperiksa.
 - `periksa_rilis.py` melaporkan 0 gagal dari 9 pemeriksaan; ia heuristik, bukan jaminan.
 
 ## Langkah berikutnya

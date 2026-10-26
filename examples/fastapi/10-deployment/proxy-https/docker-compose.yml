@@ -1,0 +1,38 @@
+# TugasKU API di belakang Nginx (HTTPS) dengan health check.
+# Jalankan dari folder ini; membangun image dari proyek tahap 6.
+# TUGASKU_SECRET_KEY wajib diisi lewat environment atau berkas .env.
+
+services:
+  api:
+    build: ../../proyek/tahap-6
+    environment:
+      TUGASKU_SECRET_KEY: ${TUGASKU_SECRET_KEY:?TUGASKU_SECRET_KEY belum diisi}
+      TUGASKU_LINGKUNGAN: produksi
+      TUGASKU_ORIGIN_DIIZINKAN: '["https://localhost:8443"]'
+      # Uvicorn hanya mempercayai header X-Forwarded-* dari alamat yang terdaftar di sini.
+      # "*" aman HANYA karena api tidak membuka port ke luar (tidak ada "ports:" di layanan ini).
+      FORWARDED_ALLOW_IPS: "*"
+    volumes:
+      - tugasku-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8000/kesehatan"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  proxy:
+    image: nginx:stable-alpine
+    ports:
+      - "8443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  tugasku-data:

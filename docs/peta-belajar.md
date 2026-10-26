@@ -48,7 +48,7 @@ flowchart TD
 | 07 Autentikasi dan Keamanan | 7 (6 materi dan 1 proyek praktik) |
 | 08 Struktur Proyek | 6 (5 materi dan 1 proyek refaktor) |
 | 09 Pengujian | 7 (6 materi dan 1 proyek praktik) |
-| 10 Deployment | 6 (5 materi dan 1 proyek praktik) |
+| 10 Deployment | 7 (6 materi dan 1 proyek praktik) |
 
 ### Pemula
 
@@ -83,7 +83,7 @@ Halaman yang sudah tersedia di Modul 01, sesuai urutan baca yang disarankan:
 | [07 Autentikasi dan Keamanan](curriculum/07-autentikasi-keamanan/index.md) | Hashing password, token, proteksi endpoint, refresh token, otorisasi (termasuk scope), CORS | 7 halaman tersedia: [Hashing Password](curriculum/07-autentikasi-keamanan/hashing-password.md), [Token](curriculum/07-autentikasi-keamanan/token.md), [Proteksi Endpoint](curriculum/07-autentikasi-keamanan/proteksi-endpoint.md), [Refresh Token dan Pencabutan](curriculum/07-autentikasi-keamanan/refresh-token.md), [Otorisasi](curriculum/07-autentikasi-keamanan/otorisasi.md), [CORS](curriculum/07-autentikasi-keamanan/cors.md), [Proyek Praktik Tahap 4](curriculum/07-autentikasi-keamanan/proyek-tahap-4.md) |
 | [08 Struktur Proyek](curriculum/08-struktur-proyek/index.md) | Router modular, konfigurasi, middleware, background task, lifespan | 6 halaman tersedia: [Router Modular](curriculum/08-struktur-proyek/router-modular.md), [Konfigurasi dan Environment](curriculum/08-struktur-proyek/konfigurasi-environment.md), [Middleware](curriculum/08-struktur-proyek/middleware.md), [Background Task](curriculum/08-struktur-proyek/background-task.md), [Lifespan](curriculum/08-struktur-proyek/lifespan.md), [Proyek: Memecah TugasKu](curriculum/08-struktur-proyek/refaktor-tugasku.md) |
 | [09 Pengujian](curriculum/09-pengujian/index.md) | Pengujian endpoint, fixture, override dependency, basis data uji, pengujian async, mock | 7 halaman tersedia: [Pengujian Endpoint](curriculum/09-pengujian/pengujian-endpoint.md), [Fixture](curriculum/09-pengujian/fixture.md), [Override Dependency](curriculum/09-pengujian/override-dependency.md), [Basis Data untuk Pengujian](curriculum/09-pengujian/basis-data-pengujian.md), [Pengujian Async](curriculum/09-pengujian/pengujian-async.md), [Mock dan Monkeypatch](curriculum/09-pengujian/mock-monkeypatch.md), [Proyek Praktik Tahap 5](curriculum/09-pengujian/proyek-tahap-5.md) |
-| [10 Deployment](curriculum/10-deployment/index.md) | Server produksi, container, variabel environment, logging, checklist rilis | 6 halaman tersedia: [Server Produksi](curriculum/10-deployment/server-produksi.md), [Container](curriculum/10-deployment/container.md), [Variabel Environment](curriculum/10-deployment/variabel-environment.md), [Logging](curriculum/10-deployment/logging.md), [Checklist Rilis](curriculum/10-deployment/checklist-rilis.md), [Proyek Praktik Tahap 6](curriculum/10-deployment/proyek-tahap-6.md) |
+| [10 Deployment](curriculum/10-deployment/index.md) | Server produksi, container, variabel environment, logging, reverse proxy dan HTTPS, checklist rilis | 7 halaman tersedia: [Server Produksi](curriculum/10-deployment/server-produksi.md), [Container](curriculum/10-deployment/container.md), [Variabel Environment](curriculum/10-deployment/variabel-environment.md), [Logging](curriculum/10-deployment/logging.md), [Reverse Proxy dan HTTPS](curriculum/10-deployment/reverse-proxy-https.md), [Checklist Rilis](curriculum/10-deployment/checklist-rilis.md), [Proyek Praktik Tahap 6](curriculum/10-deployment/proyek-tahap-6.md) |
 
 ## Proyek praktik
 

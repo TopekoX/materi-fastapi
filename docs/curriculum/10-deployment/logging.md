@@ -261,4 +261,4 @@ Sebuah mutasi ketiga, menghapus `request_id_var.reset(token)`, **tidak** menggag
 
 ## Langkah berikutnya
 
-Lanjut ke [Checklist Rilis](checklist-rilis.md), atau kembali ke daftar materi di [Modul 10: Deployment](index.md).
+Lanjut ke [Reverse Proxy dan HTTPS](reverse-proxy-https.md), atau kembali ke daftar materi di [Modul 10: Deployment](index.md).

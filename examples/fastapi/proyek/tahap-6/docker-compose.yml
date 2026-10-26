@@ -1,5 +1,5 @@
 # Menjalankan TugasKU API dengan Docker Compose.
-# BELUM dijalankan saat materi ditulis (daemon Docker tidak aktif pada mesin penulis).
+# Sudah dijalankan dengan Docker Compose 5.6.1 di Ubuntu. Lihat halaman Container.
 
 services:
   api:

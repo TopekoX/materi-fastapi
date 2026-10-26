@@ -7,3 +7,7 @@ venv-freeze.txt
 *.db
 .env
 .pytest_cache/
+
+# Sertifikat dan kunci privat percobaan (halaman Reverse Proxy dan HTTPS)
+certs/
+.venv-contoh/

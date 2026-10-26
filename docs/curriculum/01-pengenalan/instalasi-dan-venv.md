@@ -44,11 +44,15 @@ Semua perintah, kode, dan output di Modul 01 dijalankan dengan versi berikut. Ha
 | anyio (Modul 09, ikut terpasang bersama `fastapi[standard]`) | 4.15.1 |
 | asgi-lifespan (Modul 09) | 2.1.0 |
 | Sistem operasi | Windows, memakai PowerShell |
+| Docker Engine (Modul 10, uji container) | 29.9.2, di Ubuntu Linux |
+| Docker Compose (Modul 10) | 5.6.1 |
+| Python di dalam image `python:3.14` (Modul 10) | 3.14.9 |
+| Nginx, image `nginx:stable-alpine` (Modul 10, reverse proxy) | 1.30.6 |
 
 Berkas `examples/fastapi/requirements.txt` di repositori mengunci FastAPI ke `0.162.0` dan, untuk Modul 06, SQLModel dan Alembic. SQLModel, SQLAlchemy, dan Alembic baru dipakai mulai Modul 06; Modul 01 sampai 05 hanya memerlukan FastAPI.
 
 !!! warning "Yang belum diuji"
-    Versi lain, sistem operasi macOS/Linux, dan tab macOS/Linux di halaman ini **belum diuji**. Versi minimum Python yang didukung FastAPI juga tidak saya verifikasi; lihat dokumentasi resmi FastAPI. Bila materi dan versi yang kamu pasang berbeda, hasilnya bisa berbeda dari yang tertulis.
+    Versi lain, macOS, dan tab macOS/Linux di halaman ini **belum diuji**. Pengujian di Linux (Ubuntu) hanya perintah Docker di Modul 10, serta audit akhir yang menjalankan ulang seluruh rangkaian `pytest` contoh di **Python 3.12.3** dengan versi paket yang sama (hasilnya sama dengan yang tertulis di materi, termasuk satu tes yang memang sengaja gagal di Modul 09; hanya jumlah tes yang dilewati berbeda karena `skipif` bergantung pada platform). Tampilan perintah dan keluaran terminal di halaman tetap berasal dari Windows. Versi minimum Python yang didukung FastAPI juga tidak saya verifikasi; lihat dokumentasi resmi FastAPI. Bila materi dan versi yang kamu pasang berbeda, hasilnya bisa berbeda dari yang tertulis.
 
 ## Konsep
 

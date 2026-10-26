@@ -137,6 +137,7 @@ nav:
           - Container: curriculum/10-deployment/container.md
           - Variabel Environment: curriculum/10-deployment/variabel-environment.md
           - Logging: curriculum/10-deployment/logging.md
+          - Reverse Proxy dan HTTPS: curriculum/10-deployment/reverse-proxy-https.md
           - Checklist Rilis: curriculum/10-deployment/checklist-rilis.md
           - Proyek Praktik Tahap 6: curriculum/10-deployment/proyek-tahap-6.md
 

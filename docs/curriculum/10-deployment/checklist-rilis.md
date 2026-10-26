@@ -65,13 +65,13 @@ Setiap item memuat bab tempat ia dibahas. Kolom **Otomatis** menunjukkan apakah 
 | Tidak ada rahasia di `Dockerfile` dan Compose | [Container](container.md) | Ya (heuristik) |
 | Data ada di volume, bukan di dalam container | [Container](container.md) | Tidak |
 | Jumlah worker dipilih dan diukur | [Server Produksi](server-produksi.md) | Tidak |
-| HTTPS dihentikan di proksi dan header proksi dipercaya dengan benar | [Server Produksi](server-produksi.md) | Tidak |
+| HTTPS dihentikan di proksi dan header proksi dipercaya dengan benar | [Server Produksi](server-produksi.md), [Reverse Proxy dan HTTPS](reverse-proxy-https.md) | Tidak |
 
 ### Operasional
 
 | Item | Keterangan | Otomatis |
 |---|---|---|
-| Ada cara memeriksa aplikasi hidup (*health check*) | Endpoint sederhana yang bisa dipanggil proksi atau orkestrator | Tidak |
+| Ada cara memeriksa aplikasi hidup (*health check*) | Endpoint sederhana yang bisa dipanggil proksi atau orkestrator; contoh Compose di [Reverse Proxy dan HTTPS](reverse-proxy-https.md) | Tidak |
 | Ada cadangan basis data dan cara memulihkannya | Dicoba memulihkan, bukan hanya membuat cadangan | Tidak |
 | Ada rencana mundur (*rollback*) | Versi sebelumnya masih tersedia | Tidak |
 | Ada yang dihubungi bila rilis bermasalah | Orang dan saluran yang jelas | Tidak |
@@ -128,13 +128,7 @@ Keluaran nyata (jalur `.gitignore` dipersingkat):
 
 Kode keluarnya `1`. Artinya Proyek Tahap 5 belum siap dirilis: ia belum punya `requirements.txt` yang dikunci, dan belum punya `Dockerfile`. Itulah yang dikerjakan di [Container](container.md) dan [Proyek Praktik Tahap 6](proyek-tahap-6.md).
 
-Folder contoh Container juga diperiksa:
-
-```powershell
-python periksa_rilis.py ..\container
-```
-
-Hasilnya: `.gitignore`, `.dockerignore`, `USER aplikasi`, rahasia di `Dockerfile`/Compose, dan `requirements.txt` (6 paket) semuanya `LULUS`; `ada pengujian` dan `ada konfigurasi migrasi` `GAGAL` (`2 gagal dari 9 pemeriksaan`). Itu benar, karena folder tersebut hanya berisi berkas container, bukan aplikasinya.
+Hasil pemeriksaan untuk Tahap 6, yang sudah punya `Dockerfile`, `.dockerignore`, dan `requirements.txt`, ada di [Proyek Praktik Tahap 6](proyek-tahap-6.md#penilaian-kesiapan).
 
 ### Pelajaran dari percobaan pertama
 
